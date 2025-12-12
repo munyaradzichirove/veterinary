@@ -11,37 +11,43 @@
   "sex",
   "date_of_birth",
   "species",
+  "follow_up_date",
   "column_break_qawz",
   "breed",
   "weight",
   "colour",
+  "differential_diagnosis",
   "column_break_redj",
   "hr",
   "rr",
   "hyd",
-  "crt"
+  "crt",
+  "section_break_dbbm",
+  "diagnosis",
+  "advices"
  ],
  "fields": [
   {
    "fieldname": "patient_name",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_filter": 1,
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Patient Name"
+   "label": "Patient Name",
+   "options": "Patient Name"
   },
   {
    "fieldname": "sex",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "in_filter": 1,
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
    "label": "Sex",
-   "options": "Male\nFemale"
+   "options": "Pet Sex"
   },
   {
    "fieldname": "species",
@@ -65,13 +71,14 @@
   },
   {
    "fieldname": "colour",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_filter": 1,
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Colour"
+   "label": "Colour",
+   "options": "Pet Colour"
   },
   {
    "fieldname": "date_of_birth",
@@ -84,13 +91,14 @@
   },
   {
    "fieldname": "breed",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "in_filter": 1,
    "in_global_search": 1,
    "in_list_view": 1,
    "in_preview": 1,
    "in_standard_filter": 1,
-   "label": "Breed"
+   "label": "Breed",
+   "options": "Pet Breed"
   },
   {
    "fieldname": "hr",
@@ -139,13 +147,37 @@
   {
    "fieldname": "column_break_redj",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "differential_diagnosis",
+   "fieldtype": "Small Text",
+   "label": "Differential Diagnosis"
+  },
+  {
+   "fieldname": "section_break_dbbm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "diagnosis",
+   "fieldtype": "Text",
+   "label": "Diagnosis"
+  },
+  {
+   "fieldname": "advices",
+   "fieldtype": "Text",
+   "label": "Advices"
+  },
+  {
+   "fieldname": "follow_up_date",
+   "fieldtype": "Date",
+   "label": "Follow Up Date"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-12-10 12:04:00.350724",
+ "modified": "2025-12-12 15:03:57.965788",
  "modified_by": "Administrator",
  "module": "Veterinary",
  "name": "Pet Details",
