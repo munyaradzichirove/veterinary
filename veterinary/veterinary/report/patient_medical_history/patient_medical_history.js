@@ -1,5 +1,12 @@
 frappe.query_reports["Patient Medical History"] = {
     filters: [
+         {
+            fieldname: "patient_owner",
+            label: "Patient Owner",
+            fieldtype: "Link",
+            options: "Customer",
+            reqd: 1
+        },
         {
             fieldname: "patient_name",
             label: "Patient Name",
