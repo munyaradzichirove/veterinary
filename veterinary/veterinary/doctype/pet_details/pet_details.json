@@ -6,22 +6,28 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "patient_details_section",
   "column_break_xxxh",
   "patient_name",
   "patient_owner",
   "sex",
+  "column_break_txdh",
   "date_of_birth",
   "species",
   "follow_up_date",
   "column_break_qawz",
   "breed",
-  "weight",
   "colour",
-  "column_break_redj",
-  "hr",
-  "rr",
+  "physical_exam_section",
   "hyd",
+  "column_break_mhnx",
+  "weight",
+  "column_break_wzhy",
   "crt",
+  "column_break_wznw",
+  "rr",
+  "column_break_eqdc",
+  "hr",
   "section_break_dbbm",
   "differential_diagnosis",
   "diagnosis",
@@ -153,36 +159,28 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "column_break_redj",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "differential_diagnosis",
-   "fieldtype": "Small Text",
+   "fieldtype": "Data",
    "label": "Differential Diagnosis"
   },
   {
    "fieldname": "section_break_dbbm",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Medicals"
   },
   {
    "fieldname": "diagnosis",
-   "fieldtype": "Small Text",
+   "fieldtype": "Data",
    "label": "Diagnosis"
   },
   {
    "fieldname": "advices",
-   "fieldtype": "Small Text",
+   "fieldtype": "Data",
    "label": "Advices"
   },
   {
-   "fieldname": "follow_up_date",
-   "fieldtype": "Date",
-   "label": "Follow Up Date"
-  },
-  {
    "fieldname": "complaint",
-   "fieldtype": "Small Text",
+   "fieldtype": "Data",
    "label": "Complaint"
   },
   {
@@ -196,13 +194,48 @@
    "label": "Patient Owner",
    "options": "Customer",
    "reqd": 1
+  },
+  {
+   "fieldname": "patient_details_section",
+   "fieldtype": "Section Break",
+   "label": "Patient Details"
+  },
+  {
+   "fieldname": "column_break_txdh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "follow_up_date",
+   "fieldtype": "Date",
+   "label": "Follow Up Date"
+  },
+  {
+   "fieldname": "physical_exam_section",
+   "fieldtype": "Section Break",
+   "label": "Physical Exam"
+  },
+  {
+   "fieldname": "column_break_mhnx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_wzhy",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_wznw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_eqdc",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2025-12-15 16:33:46.282451",
+ "modified": "2025-12-18 08:48:27.338485",
  "modified_by": "Administrator",
  "module": "Veterinary",
  "name": "Pet Details",

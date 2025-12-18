@@ -4,35 +4,14 @@ from frappe import _
 
 def execute(filters=None):
     filters = filters or {}
+
     patient_name = filters.get("patient_name")
     from_date = filters.get("from_date")
     to_date = filters.get("to_date")
 
-    if not patient_name:
-        return [], []
-
-    # Fetch patient details
-    patient_list = frappe.get_all(
-        "Patient Name",
-        filters={"name": patient_name},
-        fields=["patient_name", "patient_owner", "colour", "dob", "sex", "species", "breed"],
-        limit=1
-    )
-
-    if not patient_list:
-        print("🔴 No patient found with name:", patient_name)
-        return [], [{"visit_date": "No patient found"}]
-
-    print("🟢 Patient details:", patient_list[0])
-
-    # Fetch history
-    history = get_pet_history(patient_name, from_date, to_date)
-    if not history:
-        return [], [{"visit_date": "No visits found"}]
-
-    # Columns for report
     columns = [
         {"label": "Visit Date", "fieldname": "visit_date", "fieldtype": "Date"},
+        {"label": "Patient", "fieldname": "patient_name", "fieldtype": "Data"},
         {"label": "Complaint", "fieldname": "complaint", "fieldtype": "Data"},
         {"label": "Diagnosis", "fieldname": "diagnosis", "fieldtype": "Data"},
         {"label": "Differential Diagnosis", "fieldname": "differential_diagnosis", "fieldtype": "Data"},
@@ -43,6 +22,8 @@ def execute(filters=None):
         {"label": "CRT", "fieldname": "crt", "fieldtype": "Data"},
         {"label": "Items Used", "fieldname": "items_used", "fieldtype": "Data"},
     ]
+
+    history = get_pet_history(patient_name, from_date, to_date)
 
     return columns, history
 
@@ -118,13 +99,20 @@ def print_patient_history(filters):
 
     patient_info = patient_list[0]
 
-    # Fetch history using the same function
+    # Fetch history
     history = get_pet_history(patient_name, from_date, to_date)
 
-    # Render Jinja template
+    # 👇 Logged-in user
+    logged_in_user = frappe.session.user
+    logged_in_user_name = frappe.get_value("User", logged_in_user, "full_name")
+
     html = render_template(
         "veterinary/templates/print_patient_history.html",
-        {"patient_info": patient_info, "history": history}
+        {
+            "patient_info": patient_info,
+            "history": history,
+            "printed_by": logged_in_user_name or logged_in_user
+        }
     )
 
     return html
