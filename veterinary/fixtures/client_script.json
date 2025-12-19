@@ -37,10 +37,32 @@
   "doctype": "Client Script",
   "dt": "Post Mortem Report",
   "enabled": 1,
-  "modified": "2025-12-19 13:12:05.258143",
+  "modified": "2025-12-19 15:55:49.954822",
   "module": "Veterinary",
   "name": "image on post moterm",
-  "script": "frappe.ui.form.on('Post Mortem Report', {\n    refresh: function(frm) {\n        // Render preview on refresh\n        render_image_preview(frm);\n    },\n    photo: function(frm) {\n        // Update preview whenever image changes\n        render_image_preview(frm);\n    }\n});\n\nfunction render_image_preview(frm) {\n    const field = frm.fields_dict.image_preview.$wrapper;\n    const file_url = frm.doc.image; // this is the file URL\n\n    if (file_url) {\n        field.html(`<img src=\"${file_url}\" style=\"max-width:200px; max-height:200px; border:1px solid #ccc; padding:4px;\">`);\n    } else {\n        field.html('<p>No image attached</p>');\n    }\n}",
+  "script": "frappe.ui.form.on('Post Mortem Report', {\n    refresh: function(frm) {\n        render_image_previews(frm);\n    },\n    image1: function(frm) { render_image_previews(frm); },\n    image2: function(frm) { render_image_previews(frm); },\n    image3: function(frm) { render_image_previews(frm); }\n});\n\nfunction render_image_previews(frm) {\n    const images = ['image1', 'image2', 'image3'];\n    const previews = ['image_preview1', 'image_preview2', 'image_preview3']; // FIXED\n\n    images.forEach((img_field, index) => {\n        const preview_field = previews[index];\n        const field = frm.fields_dict[preview_field].$wrapper;\n        const file_url = frm.doc[img_field];\n\n        if (file_url) {\n            field.html(`<img src=\"${file_url}\" style=\"max-width:200px; max-height:200px; border:1px solid #ccc; padding:4px;\">`);\n        } else {\n            field.html('<p>No image attached</p>');\n        }\n    });\n}\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2025-12-19 15:31:41.763010",
+  "module": "Veterinary",
+  "name": "only get customer invoices",
+  "script": "frappe.ui.form.on('Quotation', {\n    customer_name: function(frm) {\n        // Clear invoice when customer changes\n        frm.set_value('custom_medication_receipt_no', '');\n\n        // Set query filter for the invoice field\n        frm.set_query('custom_medication_receipt_no', function() {\n            return {\n                filters: {\n                    customer: frm.doc.customer_name,\n                    docstatus: 1 // optionally show only submitted invoices\n                }\n            };\n        });\n    },\n\n    // Also run on form load so the filter works if customer already selected\n    refresh: function(frm) {\n        if (frm.doc.customer_name) {\n            frm.set_query('custom_medication_receipt_no', function() {\n                return {\n                    filters: {\n                        customer: frm.doc.customer_name,\n                        docstatus: 1\n                    }\n                };\n            });\n        }\n    }\n});\n",
+  "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2025-12-19 15:42:27.157081",
+  "module": "Veterinary",
+  "name": "Get patients based on customer",
+  "script": "frappe.ui.form.on('Quotation', {\n    // Trigger when customer changes\n    customer_name: function(frm) {\n        // Loop through existing child rows and reset patient_name\n        if (frm.doc.custom_pet_details) {\n            frm.doc.custom_pet_details.forEach(row => {\n                row.patient_name = '';\n            });\n            frm.refresh_field('custom_pet_details');\n        }\n\n        // Set query for child table field\n        frm.fields_dict['custom_pet_details'].grid.get_field('patient_name').get_query = function(doc, cdt, cdn) {\n            const row = locals[cdt][cdn];\n            return {\n                filters: {\n                    patient_owner: frm.doc.party_name\n                }\n            };\n        };\n    },\n\n    // Also run on form load in case customer is pre-filled\n    refresh: function(frm) {\n        if (frm.doc.party_name) {\n            frm.fields_dict['custom_pet_details'].grid.get_field('patient_name').get_query = function(doc, cdt, cdn) {\n                return {\n                    filters: {\n                        patient_owner: frm.doc.party_name\n                    }\n                };\n            };\n        }\n    }\n});\n",
   "view": "Form"
  }
 ]

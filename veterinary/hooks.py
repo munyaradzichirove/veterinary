@@ -251,6 +251,12 @@ fixtures = [
         ]
     },
     {
+        "dt": "Custom Field",
+        "filters": [
+            ["dt", "=", "Quotation Item"]
+        ]
+    },
+    {
         "doctype": "Client Script",
         "filters": [
             ["module", "=", "Veterinary"]

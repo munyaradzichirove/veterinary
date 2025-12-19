@@ -14,17 +14,25 @@
   "column_break_pyid",
   "date_of_post_moterm_exam",
   "date_of_post_moterm_report",
-  "image",
-  "image_preview",
   "column_break_yaxc",
   "species",
   "history",
+  "images_section",
+  "image1",
+  "image_preview1",
+  "column_break_nxbw",
+  "image2",
+  "image_preview2",
+  "column_break_mowl",
+  "image3",
+  "image_preview3",
   "findings_section",
   "post_mortem_findings",
   "column_break_nssd",
   "post_mortem_diagnosis",
   "column_break_ytdb",
-  "treatment__recommendations"
+  "treatment__recommendations",
+  "amended_from"
  ],
  "fields": [
   {
@@ -149,21 +157,61 @@
    "label": "patient_owner"
   },
   {
-   "fetch_from": "pet_name.image",
-   "fieldname": "image",
-   "fieldtype": "Attach Image",
-   "hidden": 1,
-   "label": "Image"
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Post Mortem Report",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
   },
   {
-   "fieldname": "image_preview",
+   "fieldname": "image1",
+   "fieldtype": "Attach Image",
+   "label": "Image1"
+  },
+  {
+   "fieldname": "image_preview1",
    "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "image2",
+   "fieldtype": "Attach Image",
+   "label": "Image2"
+  },
+  {
+   "fieldname": "image3",
+   "fieldtype": "Attach Image",
+   "label": "Image3"
+  },
+  {
+   "fieldname": "image_preview2",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "image_preview3",
+   "fieldtype": "HTML"
+  },
+  {
+   "fieldname": "images_section",
+   "fieldtype": "Section Break",
+   "label": "Images"
+  },
+  {
+   "fieldname": "column_break_nxbw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_mowl",
+   "fieldtype": "Column Break"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
+ "is_submittable": 1,
  "links": [],
- "modified": "2025-12-19 13:15:11.171152",
+ "modified": "2025-12-19 15:57:58.264756",
  "modified_by": "Administrator",
  "module": "Veterinary",
  "name": "Post Mortem Report",
