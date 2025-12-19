@@ -253,8 +253,8 @@ fixtures = [
 ]
 
 
-# doc_events = {
-#     "Quotation": {
-#         "before_save": "veterinary.www.api.sync_pet_history"
-#     }
-# }
+doc_events = {
+    "Quotation": {
+        "before_save": "veterinary.www.api.before_save"
+    }
+}

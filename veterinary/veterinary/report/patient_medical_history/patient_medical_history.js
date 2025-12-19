@@ -13,6 +13,11 @@ frappe.query_reports["Patient Medical History"] = {
             options: "Patient Name",
         },
         {
+            fieldname: "follow_up_date",
+            label: "Follow Up Date",
+            fieldtype: "Date"
+        },
+        {
             fieldname: "from_date",
             label: "From Date",
             fieldtype: "Date"

@@ -9,10 +9,15 @@
   "patient_owner",
   "colour",
   "dob",
+  "image",
+  "image_preview",
   "column_break_vkcg",
   "sex",
   "species",
-  "breed"
+  "breed",
+  "vaccinated",
+  "next_vaccination_date",
+  "alive"
  ],
  "fields": [
   {
@@ -58,12 +63,39 @@
    "fieldname": "dob",
    "fieldtype": "Date",
    "label": "D.O.B"
+  },
+  {
+   "default": "0",
+   "fieldname": "vaccinated",
+   "fieldtype": "Check",
+   "label": "Vaccinated"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Attach Image",
+   "label": "Image"
+  },
+  {
+   "default": "1",
+   "fieldname": "alive",
+   "fieldtype": "Check",
+   "label": "Alive"
+  },
+  {
+   "fieldname": "next_vaccination_date",
+   "fieldtype": "Date",
+   "label": "Next Vaccination Date"
+  },
+  {
+   "fieldname": "image_preview",
+   "fieldtype": "HTML",
+   "label": "image_preview"
   }
  ],
  "grid_page_length": 50,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2025-12-18 08:37:33.389002",
+ "modified": "2025-12-19 12:55:01.268038",
  "modified_by": "Administrator",
  "module": "Veterinary",
  "name": "Patient Name",

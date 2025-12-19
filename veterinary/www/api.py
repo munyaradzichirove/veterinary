@@ -1,5 +1,6 @@
 import frappe
 from frappe.utils import nowdate
+from frappe.model.document import Document
 
 def sync_pet_history(doc, method):
     if not doc.custom_pet_details:
@@ -40,3 +41,10 @@ def sync_pet_history(doc, method):
         history.advices = row.advices
 
         history.save(ignore_permissions=True)
+
+
+
+def before_save(doc, method):
+    if doc.custom_pet_details:
+        for row in doc.custom_pet_details:
+            row.follow_up_date = doc.custom_follow_up_date

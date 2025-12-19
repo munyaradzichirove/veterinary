@@ -9,12 +9,14 @@ def execute(filters=None):
     patient_name = filters.get("patient_name")
     from_date = filters.get("from_date")
     to_date = filters.get("to_date")
+    follow_up_date = filters.get("follow_up_date")
 
     history = get_pet_history(
         patient_name=patient_name,
         patient_owner=patient_owner,
         from_date=from_date,
-        to_date=to_date
+        to_date=to_date,
+        follow_up_date=follow_up_date
     )
 
     columns = [
@@ -24,6 +26,7 @@ def execute(filters=None):
         {"label": "Complaint", "fieldname": "complaint", "fieldtype": "Data"},
         {"label": "Diagnosis", "fieldname": "diagnosis", "fieldtype": "Data"},
         {"label": "Differential Diagnosis", "fieldname": "differential_diagnosis", "fieldtype": "Data"},
+        {"label": "Advices", "fieldname": "advices", "fieldtype": "Data"},
         {"label": "Weight", "fieldname": "weight", "fieldtype": "Float"},
         {"label": "HR", "fieldname": "hr", "fieldtype": "Float"},
         {"label": "RR", "fieldname": "rr", "fieldtype": "Float"},
@@ -34,7 +37,7 @@ def execute(filters=None):
 
     return columns, history
 
-def get_pet_history(patient_name=None, patient_owner=None, from_date=None, to_date=None):
+def get_pet_history(patient_name=None, patient_owner=None,follow_up_date=None, from_date=None, to_date=None):
     conditions = ["po.docstatus = 1"]
     values = []
 
@@ -54,6 +57,10 @@ def get_pet_history(patient_name=None, patient_owner=None, from_date=None, to_da
         conditions.append("po.transaction_date <= %s")
         values.append(to_date)
 
+    if follow_up_date:
+        conditions.append("po.custom_follow_up_date = %s")
+        values.append(follow_up_date)
+
     where_clause = " AND ".join(conditions)
 
     query = f"""
@@ -65,6 +72,7 @@ def get_pet_history(patient_name=None, patient_owner=None, from_date=None, to_da
             pet.complaint,
             pet.diagnosis,
             pet.differential_diagnosis,
+            pet.advices,
             pet.weight,
             pet.hr,
             pet.rr,
@@ -102,10 +110,9 @@ def print_patient_history(filters):
     patient_list = frappe.get_all(
         "Patient Name",
         filters={"name": patient_name},
-        fields=["patient_name", "patient_owner", "colour", "dob", "sex", "species", "breed"],
+        fields=["patient_name", "patient_owner", "colour", "dob", "sex", "species", "breed","vaccinated","next_vaccination_date"],
         limit=1
     )
-
     if not patient_list:
         frappe.throw(_("No patient found with name {0}").format(patient_name))
 

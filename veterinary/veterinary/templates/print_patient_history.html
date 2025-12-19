@@ -93,11 +93,13 @@
             <div class="col-md-4">
                 <p><b>DOB:</b> {{ patient_info.dob }}</p>
                 <p><b>Sex:</b> {{ patient_info.sex }}</p>
+                <p><b>Vaccinated:</b> {{ "Yes" if patient_info.vaccinated else "No" }}</p>
             </div>
 
             <div class="col-md-4">
                 <p><b>Breed:</b> {{ patient_info.breed }}</p>
                 <p><b>Species:</b> {{ patient_info.species }}</p>
+                 <p><b>Next Vaccination Date:</b> {{ patient_info.next_vaccination_date }}</p>
             </div>
         </div>
     </div>
@@ -145,6 +147,7 @@
                         <th style="color:#0d6efd;">Complaint</th>
                         <th style="color:#0d6efd;">Diagnosis</th>
                         <th style="color:#0d6efd;">Differential Diagnosis</th>
+                        <th style="color:#0d6efd;">Advices</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -152,6 +155,7 @@
                         <td>{{ row.complaint }}</td>
                         <td>{{ row.diagnosis }}</td>
                         <td>{{ row.differential_diagnosis }}</td>
+                        <td>{{ row.advices }}</td>
                     </tr>
                 </tbody>
             </table>
