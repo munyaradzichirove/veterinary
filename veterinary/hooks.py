@@ -247,23 +247,19 @@ fixtures = [
     {
         "dt": "Custom Field",
         "filters": [
-            ["dt", "=", "Quotation"]
+            ["dt", "in", ["Quotation", "Quotation Item"]]
         ]
     },
     {
-        "dt": "Custom Field",
-        "filters": [
-            ["dt", "=", "Quotation Item"]
-        ]
+        "dt": "Property Setter"
     },
     {
-        "doctype": "Client Script",
+        "dt": "Client Script",
         "filters": [
             ["module", "=", "Veterinary"]
         ]
     }
 ]
-
 
 doc_events = {
     "Quotation": {

@@ -64,5 +64,16 @@
   "name": "Get patients based on customer",
   "script": "frappe.ui.form.on('Quotation', {\n    // Trigger when customer changes\n    customer_name: function(frm) {\n        // Loop through existing child rows and reset patient_name\n        if (frm.doc.custom_pet_details) {\n            frm.doc.custom_pet_details.forEach(row => {\n                row.patient_name = '';\n            });\n            frm.refresh_field('custom_pet_details');\n        }\n\n        // Set query for child table field\n        frm.fields_dict['custom_pet_details'].grid.get_field('patient_name').get_query = function(doc, cdt, cdn) {\n            const row = locals[cdt][cdn];\n            return {\n                filters: {\n                    patient_owner: frm.doc.party_name\n                }\n            };\n        };\n    },\n\n    // Also run on form load in case customer is pre-filled\n    refresh: function(frm) {\n        if (frm.doc.party_name) {\n            frm.fields_dict['custom_pet_details'].grid.get_field('patient_name').get_query = function(doc, cdt, cdn) {\n                return {\n                    filters: {\n                        patient_owner: frm.doc.party_name\n                    }\n                };\n            };\n        }\n    }\n});\n",
   "view": "Form"
+ },
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2026-01-02 14:31:44.265811",
+  "module": "Veterinary",
+  "name": "eeee",
+  "script": "frappe.ui.form.on(\"Quotation\", {\n    refresh(frm) {\n        const grid = frm.fields_dict[\"custom_pet_details\"]?.grid;\n        if (!grid) return;\n\n        const fieldname = \"patient_name\";\n\n        grid.grid_rows.forEach(row => {\n            if (!row || !row.doc) return;  // <<< safety check\n\n            const field = row.fields_dict[fieldname];\n            if (!field || field.__create_new_hooked) return;\n\n            const parent_customer = frm.doc.customer;\n            const parent_customer_name = frm.doc.customer_name;\n\n            const original_create_new_doc = field.create_new_doc;\n            field.create_new_doc = function(value) {\n                console.log(\"Bro, creating new Patient Name!\", row.doc);\n\n                frappe.new_doc(\"Patient Name\", {\n                    patient_owner: parent_customer || \"Pos Customer\",\n                    patient_owner_name: parent_customer_name || \"\",\n                    patient_name: value\n                });\n            };\n\n            field.__create_new_hooked = true;\n        });\n    }\n});\n",
+  "view": "Form"
  }
 ]
