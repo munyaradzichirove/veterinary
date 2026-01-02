@@ -67,7 +67,10 @@ def get_pet_history(patient_name=None, patient_owner=None,follow_up_date=None, f
         SELECT
             po.name AS quotation,
             po.transaction_date AS visit_date,
-            pet.patient_name,
+
+            -- human-readable patient name
+            pn.patient_name AS patient_name,
+
             pet.patient_owner,
             pet.complaint,
             pet.diagnosis,
@@ -78,13 +81,23 @@ def get_pet_history(patient_name=None, patient_owner=None,follow_up_date=None, f
             pet.rr,
             pet.hyd,
             pet.crt,
+
             GROUP_CONCAT(qi.item_name SEPARATOR ', ') AS items_used
+
         FROM `tabQuotation` po
+
         JOIN `tabPet Details` pet
-            ON pet.parent = po.name AND pet.parenttype = 'Quotation'
+            ON pet.parent = po.name
+            AND pet.parenttype = 'Quotation'
+
+        LEFT JOIN `tabPatient Name` pn
+            ON pn.name = pet.patient_name
+
         LEFT JOIN `tabQuotation Item` qi
             ON qi.parent = po.name
+
         WHERE {where_clause}
+
         GROUP BY po.name, po.transaction_date, pet.name
         ORDER BY po.transaction_date DESC
     """

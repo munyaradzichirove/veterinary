@@ -6,11 +6,30 @@ frappe.query_reports["Patient Medical History"] = {
             fieldtype: "Link",
             options: "Customer",
         },
-        {
+        // {
+        //     fieldname: "patient_name",
+        //     label: "Patient Name",
+        //     fieldtype: "Link",
+        //     options: "Patient Name",
+        // },
+         {
             fieldname: "patient_name",
             label: "Patient Name",
             fieldtype: "Link",
             options: "Patient Name",
+            get_query: function () {
+                const patient_owner = frappe.query_report.get_filter_value("patient_owner");
+
+                if (!patient_owner) {
+                    return {};
+                }
+
+                return {
+                    filters: {
+                        patient_owner: patient_owner
+                    }
+                };
+            }
         },
         {
             fieldname: "follow_up_date",
